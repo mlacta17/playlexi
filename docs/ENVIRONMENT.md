@@ -12,12 +12,29 @@ Commands were run from the new repository without modifying Xcode configuration.
 
 | Check | Observed result | Interpretation |
 | --- | --- | --- |
-| `xcodebuild -version` | Reports Xcode 16.2, build 16C5032a, then fails loading `libxcodebuildLoader.dylib` because `_XPCTypeBool` is unavailable from the installed system framework | Xcode installation and host system frameworks are not currently compatible |
+| `sw_vers` | macOS 26.6.2, build 25G83 | Host meets Apple's published requirement for Xcode 27 |
+| `xcode-select -p` | `/Applications/Xcode.app/Contents/Developer` | The full Xcode installation is already selected; this is not a Command Line Tools path-selection error |
+| `xcodebuild -version` | Reports Xcode 16.2, build 16C5032a, then fails loading `libxcodebuildLoader.dylib` because `_XPCTypeBool` is unavailable from the installed system framework | Xcode 16.2 is incompatible with this host OS; Apple lists its supported range as macOS 14.5 through macOS 15.x |
 | `swift --version` | Fails because Xcode cannot locate Swift through a valid macOS SDK; references a missing `macosx/SDKSettings.plist` path | Swift builds cannot be trusted or run |
+| Command Line Tools package | 16.2.0.0.1.1733547573 | Command Line Tools are also from the incompatible Xcode generation |
 
-The failure may indicate an incomplete OS/Xcode update or incompatible selected
-developer directory. That cause is a hypothesis until the installation and
-`xcode-select` state are inspected after any ongoing update finishes.
+Apple's current compatibility table lists Xcode 27 for macOS 26.6 or later, with
+device support for iOS 17 or later. Installing the current stable Xcode 27 is the
+preferred repair because it matches this host and supports the intended iOS 26
+validation device. Source checked 2026-09-16:
+<https://developer.apple.com/xcode/system-requirements>.
+
+## Required owner action
+
+1. Update Xcode through the Mac App Store, or install the current stable Xcode
+   27 from Apple Developer Downloads.
+2. Launch the new Xcode once.
+3. Accept any license prompt and allow requested platform components to finish
+   installing.
+4. Return to this repository and rerun the verification below.
+
+Do not download an older Xcode 16 release. It does not support this host OS or
+the iOS 26 SDK needed for the selected validation direction.
 
 ## Required before project generation
 
