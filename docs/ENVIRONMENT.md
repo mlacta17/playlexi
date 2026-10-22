@@ -1,7 +1,7 @@
 # Development environment
 
 **Last checked:** 2026-10-21
-**Status:** Web prerequisites available; iOS and Android builds blocked
+**Status:** Web prerequisites available; native first-run setup incomplete
 
 This document records observed local facts. It does not install or upgrade host
 software and does not select project dependency versions.
@@ -15,10 +15,13 @@ software and does not select project dependency versions.
 | Corepack | 0.32.0 | Available |
 | pnpm | 11.25.0 | Available; exact project version will be pinned during scaffolding |
 | Selected developer directory | `/Applications/Xcode.app/Contents/Developer` | Full Xcode path selected |
-| Xcode | 16.2, build 16C5032a; `xcodebuild` fails loading required libraries | iOS builds are blocked by an incompatible/broken installation |
-| Java | No runtime found | Android builds are blocked |
-| Android Debug Bridge | `adb` not found | Android SDK/platform tools are not installed or not on PATH |
-| Android Studio | Not present in `/Applications` | Android development environment is not installed |
+| Xcode | 27.1, build 27A9275 | Application is updated, but the Apple license has not been accepted |
+| Command Line Tools | 26.6.0.0.1781586589 | Installed |
+| Xcode SDK/simulator checks | Blocked by the unaccepted license; `xcodebuild -showsdks` also reports a CoreDevice library-loading error before first-run completion | Recheck after Xcode completes license/components setup |
+| Android Studio | 2026.2, build AI-262.9437.185.2621.16467767 | Application is installed |
+| Android Studio bundled JDK | OpenJDK 25.0.3 | Available inside Android Studio; project compatibility remains to be verified |
+| Android SDK | No `~/Library/Android/sdk` directory observed | Android Studio setup wizard has not installed the SDK |
+| Android Debug Bridge | `adb` not found | Platform tools are not installed or not on PATH |
 
 The deterministic web implementation may begin after project-version
 compatibility is selected. Phase 1 cannot exit until iOS and Android builds also
@@ -39,11 +42,11 @@ Compatibility, maintenance, platform support, and required APIs are the gates.
 
 ## Required before iOS build
 
-The installed Xcode 16.2 cannot run correctly on this host. The owner must:
+Xcode 27.1 is installed. The owner must:
 
-1. install a current Xcode release compatible with macOS 26.6.2;
-2. launch Xcode once;
-3. accept the license and install requested platform components; and
+1. launch Xcode;
+2. accept Apple's license;
+3. allow requested platform components to finish installing; and
 4. allow these checks to pass without suppressed errors:
 
 ```bash
@@ -59,8 +62,9 @@ device, OS version, and signing availability without account identifiers.
 
 ## Required before Android build
 
-Install a current Android Studio/toolchain combination supported by the selected
-Expo SDK. Then record:
+Android Studio 2026.2 is installed. The owner must launch it and complete its
+setup wizard, including the Android SDK, platform tools, emulator, and at least
+one supported system image. Then record:
 
 ```bash
 java -version
