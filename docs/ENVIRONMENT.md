@@ -1,7 +1,7 @@
 # Development environment
 
-**Last checked:** 2026-10-21
-**Status:** Web prerequisites available; native first-run setup incomplete
+**Last checked:** 2026-10-22
+**Status:** Web, iOS, and Android toolchains available; project versions not pinned
 
 This document records observed local facts. It does not install or upgrade host
 software and does not select project dependency versions.
@@ -15,13 +15,19 @@ software and does not select project dependency versions.
 | Corepack | 0.32.0 | Available |
 | pnpm | 11.25.0 | Available; exact project version will be pinned during scaffolding |
 | Selected developer directory | `/Applications/Xcode.app/Contents/Developer` | Full Xcode path selected |
-| Xcode | 27.1, build 27A9275 | Application is updated, but the Apple license has not been accepted |
+| Xcode | 27.1, build 27A9275 | Verified |
 | Command Line Tools | 26.6.0.0.1781586589 | Installed |
-| Xcode SDK/simulator checks | Blocked by the unaccepted license; `xcodebuild -showsdks` also reports a CoreDevice library-loading error before first-run completion | Recheck after Xcode completes license/components setup |
+| Xcode system resources | 27.1.0.0.1790739719; CoreDevice 651.13.5 | Stale Xcode 16.2 system resources were replaced successfully |
+| Swift | 6.4, targeting arm64 macOS 27 | Verified |
+| iOS SDK | iOS 27.1 and iOS Simulator 27.1 SDKs | Verified |
+| Available iOS simulator runtime | iOS 18.3.1 with iPhone 16-family devices | Sufficient for initial deterministic builds; add a newer runtime only if selected support policy requires it |
+| Physical iPhone | Not visible during verification | Connect and pair before real-device capture validation |
 | Android Studio | 2026.2, build AI-262.9437.185.2621.16467767 | Application is installed |
-| Android Studio bundled JDK | OpenJDK 25.0.3 | Available inside Android Studio; project compatibility remains to be verified |
-| Android SDK | No `~/Library/Android/sdk` directory observed | Android Studio setup wizard has not installed the SDK |
-| Android Debug Bridge | `adb` not found | Platform tools are not installed or not on PATH |
+| Android Studio bundled JDK | OpenJDK 25.0.3 | Available; project compatibility remains to be verified against the generated Gradle build |
+| Android SDK | `~/Library/Android/sdk`; platform and sources 37.0; build tools 36.0.0 | Installed |
+| Android Debug Bridge | 1.0.41 / 37.0.1 at `~/Library/Android/sdk/platform-tools/adb` | Installed but not currently on the interactive shell PATH |
+| Android emulator | Installed with Android 37 Google Play arm64 image | Verified |
+| Android virtual device | `Medium_Phone_API_37.0` | Available for Phase 1 |
 
 The deterministic web implementation may begin after project-version
 compatibility is selected. Phase 1 cannot exit until iOS and Android builds also
@@ -40,14 +46,9 @@ succeed.
 No package should be selected solely because it has the highest version number.
 Compatibility, maintenance, platform support, and required APIs are the gates.
 
-## Required before iOS build
+## Verified iOS baseline
 
-Xcode 27.1 is installed. The owner must:
-
-1. launch Xcode;
-2. accept Apple's license;
-3. allow requested platform components to finish installing; and
-4. allow these checks to pass without suppressed errors:
+These checks now succeed:
 
 ```bash
 xcode-select -p
@@ -57,24 +58,28 @@ swift --version
 xcrun simctl list devices available
 ```
 
-Then record the Xcode/Swift builds, iOS SDK, simulator runtime, physical test
-device, OS version, and signing availability without account identifiers.
+The first simulator build must still run successfully. Before real-device
+capture validation, connect and pair the target iPhone, record its model and OS,
+and verify signing without recording account identifiers.
 
-## Required before Android build
+## Verified Android baseline
 
-Android Studio 2026.2 is installed. The owner must launch it and complete its
-setup wizard, including the Android SDK, platform tools, emulator, and at least
-one supported system image. Then record:
+Android Studio, its bundled JDK, the SDK, platform tools, emulator, system image,
+and one virtual device are installed. The tools currently require explicit paths
+because Android environment variables and the platform-tools PATH entry are not
+configured in the shell.
+
+During scaffolding, record:
 
 ```bash
-java -version
-adb version
-sdkmanager --list_installed
+"/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/java" -version
+"$HOME/Library/Android/sdk/platform-tools/adb" version
+"$HOME/Library/Android/sdk/emulator/emulator" -list-avds
 ```
 
-Also record the JDK, Android Gradle Plugin/Gradle versions produced by the Expo
-scaffold, installed SDK/platform/build-tools versions, emulator image, and
-physical test device.
+Also record the Android Gradle Plugin and Gradle versions produced by the Expo
+scaffold and run the first emulator build. A physical Android device is not
+required for Phase 1, but is required before capture/recognition claims.
 
 Do not invent `JAVA_HOME`, Android SDK paths, or Gradle versions before the
 supported Expo toolchain is selected.
