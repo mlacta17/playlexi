@@ -1,7 +1,7 @@
 # Technical architecture
 
-**Version:** 0.2
-**Last reviewed:** 2026-10-21
+**Version:** 0.3
+**Last reviewed:** 2026-10-22
 **Status:** Accepted for validation phases
 
 ## 1. Objective
@@ -59,9 +59,11 @@ ADR-005 accepts provider-neutral, evidence-first speech selection. Vosk and a
 custom on-device letter classifier are candidates, not production selections.
 ADR-006 keeps validation phases local-first without a product backend.
 
-Exact dependency, Node, pnpm, Expo SDK, React Native, browser, deployment, and
-native-platform versions are pinned during scaffolding after compatibility is
-verified. “Latest” is not a version policy.
+ADR-007 pins the Phase 1 baseline to Node.js 24.22.1 LTS, pnpm 11.25.0,
+Expo SDK 58, React Native 0.88, React 19.3.0, React Native Web 0.21.0, Jest 30,
+and React Native Testing Library 14 or newer. Exact compatible package releases
+are fixed in manifests and the committed lockfile. “Latest” is not a version
+policy.
 
 Primary references checked 2026-10-21:
 

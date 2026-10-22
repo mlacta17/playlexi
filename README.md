@@ -5,9 +5,10 @@ experience for web, iOS, and Android. Its defining interaction is spelling aloud
 one letter at a time with immediate, fair recovery when speech recognition is
 uncertain.
 
-The repository is intentionally small. There is no application code, backend,
-database, authentication system, or selected production speech engine yet.
-Those are gated decisions, not assumed infrastructure.
+The repository is intentionally small. Phase 1 builds only the deterministic
+universal application foundation. There is no backend, database, authentication
+system, microphone capture, or selected production speech engine yet. Those are
+gated decisions, not assumed infrastructure.
 
 ## Start here
 
@@ -24,18 +25,17 @@ Read these documents in order before making changes:
 
 ## Current status
 
-- Active phase: 0 — documentation and decision alignment.
+- Active phase: 1 — deterministic universal foundation.
 - Product clients: web, iOS, and Android.
 - Client foundation: Expo, React Native, Expo Router, and strict TypeScript.
 - Recognition: provider-neutral; Vosk and a custom letter classifier are
   benchmark candidates, not commitments.
 - Interaction baseline: one deliberate capture per letter.
 - Backend and database: absent by design.
-- Local environment: web prerequisites are available; native iOS and Android
-  prerequisites remain incomplete. See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
-- Next gate: accept the updated documents, scaffold the deterministic universal
-  application, and prove it on web plus one iOS and one Android build before
-  microphone or model integration.
+- Local environment: web, iOS simulator, and Android emulator prerequisites are
+  available. See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
+- Next gate: scaffold and prove the same deterministic spelling flow on web,
+  iOS, and Android before microphone or model integration.
 
 ## Legacy repositories
 

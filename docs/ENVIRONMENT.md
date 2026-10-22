@@ -1,7 +1,7 @@
 # Development environment
 
 **Last checked:** 2026-10-22
-**Status:** Web, iOS, and Android toolchains available; project versions not pinned
+**Status:** Web, iOS, and Android toolchains available; Phase 1 toolchain selected
 
 This document records observed local facts. It does not install or upgrade host
 software and does not select project dependency versions.
@@ -11,9 +11,9 @@ software and does not select project dependency versions.
 | Check | Observed result | Interpretation |
 | --- | --- | --- |
 | macOS | 26.6.2, build 25G83 | Current host |
-| Node.js | 23.11.0 | Available, but not an appropriate project pin until Expo compatibility is checked |
+| Node.js | 23.11.0 | Host default is end-of-life; project pin is Node.js 24.22.1 LTS per ADR-007 |
 | Corepack | 0.32.0 | Available |
-| pnpm | 11.25.0 | Available; exact project version will be pinned during scaffolding |
+| pnpm | 11.25.0 | Selected project package manager per ADR-007 |
 | Selected developer directory | `/Applications/Xcode.app/Contents/Developer` | Full Xcode path selected |
 | Xcode | 27.1, build 27A9275 | Verified |
 | Command Line Tools | 26.6.0.0.1781586589 | Installed |
@@ -29,19 +29,17 @@ software and does not select project dependency versions.
 | Android emulator | Installed with Android 37 Google Play arm64 image | Verified |
 | Android virtual device | `Medium_Phone_API_37.0` | Available for Phase 1 |
 
-The deterministic web implementation may begin after project-version
-compatibility is selected. Phase 1 cannot exit until iOS and Android builds also
-succeed.
+The deterministic implementation may begin with the versions accepted in
+ADR-007. Phase 1 cannot exit until iOS and Android builds also succeed.
 
-## Required before scaffolding
+## Selected scaffolding baseline
 
-1. Select an Expo SDK supported Node LTS version from current official Expo
-   requirements.
-2. Pin Node through a repository version file.
-3. Pin pnpm in the root `packageManager` field and commit the lockfile.
-4. Record the exact Expo, React Native, React, Expo Router, TypeScript, and test
-   versions selected by the supported scaffold.
-5. Avoid global CLI dependencies; invoke repository-pinned tooling.
+1. Node.js 24.22.1 LTS, pinned through repository version files.
+2. pnpm 11.25.0, pinned in the root `packageManager` field.
+3. Expo SDK 58 with its supported React Native 0.88, React 19.3.0, and React
+   Native Web 0.21.0 baseline.
+4. Jest 30, `jest-expo`, and React Native Testing Library 14 or newer.
+5. Repository-pinned tooling only; no global Expo CLI dependency.
 
 No package should be selected solely because it has the highest version number.
 Compatibility, maintenance, platform support, and required APIs are the gates.
