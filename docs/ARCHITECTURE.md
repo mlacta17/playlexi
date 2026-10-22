@@ -65,6 +65,10 @@ and React Native Testing Library 14 or newer. Exact compatible package releases
 are fixed in manifests and the committed lockfile. “Latest” is not a version
 policy.
 
+ADR-008 uses GitHub Actions for fast Linux CI checks, with official actions
+pinned to immutable commits. Native builds remain documented local evidence
+until capture work or release cadence justifies hosted native CI.
+
 Primary references checked 2026-10-21:
 
 - Expo describes Expo Router as universal across Android, iOS, and web:
@@ -87,7 +91,8 @@ packages/
 modules/
 └── letter-recognizer/        # Local Swift/Kotlin module only if required
 tools/
-└── benchmark/                # Sanitized evaluation and reporting tools
+├── benchmark/                # Sanitized evaluation and reporting tools
+└── ios/                      # Reproducible local iOS build preparation
 docs/                         # Canonical context and decisions
 ```
 

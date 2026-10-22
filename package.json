@@ -1,0 +1,20 @@
+{
+  "name": "playlexi",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A universal, voice-first spelling experience.",
+  "engines": {
+    "node": "24.22.1"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "android": "pnpm --filter @playlexi/app android",
+    "build:web": "pnpm --filter @playlexi/app build:web",
+    "ios": "pnpm prepare:ios && EXPO_CUSTOM_BUILD_ROOT=/private/tmp/playlexi-expo-jsi pnpm --filter @playlexi/app ios",
+    "prepare:ios": "node tools/ios/prepare-expo-modules-jsi-cache.mjs",
+    "lint": "pnpm --recursive --if-present lint",
+    "test": "pnpm --recursive --if-present test",
+    "typecheck": "pnpm --recursive --if-present typecheck",
+    "web": "pnpm --filter @playlexi/app web"
+  }
+}

@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+
+allowBuilds:
+  # These packages select or build their checked-in native bindings during
+  # installation. Keep this list explicit; do not approve scripts globally.
+  '@parcel/watcher': true
+  unrs-resolver: true
+
+strictPeerDependencies: true

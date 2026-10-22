@@ -1,14 +1,27 @@
 # Product definition
 
-**Version:** 0.2
-**Last reviewed:** 2026-10-21
+**Version:** 0.6
+**Last reviewed:** 2026-10-22
 **Status:** Accepted for validation phases
 
 ## Product statement
 
-Playlexi is a cross-platform spelling experience in which a player hears a word
-and spells it aloud. The product must make voice input accurate enough to be
-useful, transparent when uncertain, and easy to correct without restarting.
+Playlexi is a voice-first, cross-platform spelling product in which a player
+hears a word and spells it aloud. The product must make voice input accurate
+enough to be useful, transparent when uncertain, and easy to correct without
+restarting. Typing and touch remain available as a fallback when voice is
+unavailable, inaccessible, or repeatedly uncertain.
+
+The same core spelling engine is intended to support three product experiences
+over time:
+
+1. guided individual practice for children and teenagers who want to improve;
+2. focused competitive practice for high-school-aged players and adults; and
+3. social play with friends or family, first locally and eventually online.
+
+These are product horizons, not simultaneous launch commitments. The first
+release must prove the individual voice-first experience before social or
+online systems are activated.
 
 Web, iOS, and Android are supported product surfaces. Cross-platform support
 does not imply identical audio implementations or recognition quality; each
@@ -16,9 +29,24 @@ platform must pass its own validation gate.
 
 ## Intended users
 
-Children are an intended audience, subject to an unresolved age range and a
-formal child-data privacy decision. Parents, guardians, educators, and adult
-testers may also use the product.
+Playlexi's primary brand addresses a general audience rather than very young
+children. Its first audience is motivated spellers who want to improve,
+especially people preparing for spelling-bee competition or looking for a
+meaningful spelling challenge.
+
+The intended audiences are:
+
+- school-aged learners and teenagers who actively want to improve or prepare
+  for spelling-bee season;
+- older players who want challenging or competitive spelling practice; and
+- friends and families who may later use Playlexi as a local or online party
+  game.
+
+The main Playlexi brand is not an early-childhood product. A separate, more
+childlike Playlexi experience may be considered later, but it is not current
+scope. The exact minimum age remains unresolved. Any experience involving
+minors is subject to a formal child-data privacy and safety decision. Parents,
+guardians, educators, and consenting adult testers may also use the product.
 
 The initial speech cohorts include:
 
@@ -38,6 +66,107 @@ adults or appropriately licensed datasets only.
 > After hearing a word, I can spell it aloud one letter at a time, see what the
 > application heard, recover quickly from uncertainty, and complete the word
 > without fighting the microphone.
+
+For improvement-oriented play, the experience should make progress and errors
+understandable. For competitive play, it should feel fair and challenging.
+Those supporting jobs must not weaken the primary requirement: reliably
+capturing a player spelling one letter at a time.
+
+During active play, a misspelling receives a short, recognizable failure sound
+with an equivalent brief visual state, and the game moves on without a long
+interruption. Optional haptics may reinforce the result on supported devices.
+Whether and how missed words are reviewed after a round remains a separate
+learning-design decision.
+
+## Product horizons
+
+### Horizon 1 — individual voice-first play
+
+Validate the shared spelling engine through a small, single-player experience.
+Voice is the primary input. Typing and touch provide recovery and an accessible
+fallback, not a separate product direction. The long-term solo experience may
+offer multiple practice and challenge modes, but the initial mode remains small.
+
+### Horizon 2 — local social play
+
+Explore a pass-and-play party game on one shared device after the core voice and
+recovery experience is demonstrably usable. Other local-device models remain
+possible later, but they are not required for the first local concept. The
+initial competition rule is one miss eliminates the active player.
+
+### Horizon 3 — online competitive play
+
+Explore a remote spelling-bee competition after the individual and local
+experiences establish real demand. It should translate the understandable
+roles, turns, information requests, tension, judgment, advancement, and results
+of an oral spelling bee rather than behaving like a generic quiz with spelling
+added. Online play introduces identity, matchmaking, synchronization,
+moderation, minor safety, abuse prevention, ranking integrity, and operating
+costs. Each requires explicit product requirements and architecture decisions
+before implementation. Waiting players may receive optional unranked practice
+while a lobby or match is preparing, provided it does not delay entry or affect
+the live result.
+
+## Onboarding hypothesis to validate
+
+The initial playable product should test a value-before-account onboarding
+sequence:
+
+1. Let a new player begin as a guest without creating an account.
+2. Explain and verify the voice interaction before scoring begins.
+3. Run a short individual spelling game using calibrated difficulty.
+4. Show useful feedback and a clearly labeled provisional starting level.
+5. Offer account creation as the way to save the result, continue progress, and
+   use another device.
+6. Allow the player to decline without falsely claiming that an account was
+   required to try the product.
+
+The first result must not be presented as a global rank or percentile until the
+scoring model, comparison population, recognition quality, and minimum evidence
+are defined and validated. Account creation for minors also requires the
+applicable age, consent, privacy, and safety flow before implementation.
+
+This is a product hypothesis, not authorization to add authentication during
+the current phase. It should be tested during the minimal playable-product phase
+before backend architecture is selected.
+
+## Lexical content and narration
+
+Playlexi may use dictionary definitions, example sentences, parts of speech,
+origins, pronunciations, and alternate pronunciations only when their source and
+product-use rights are documented. Facts about a word do not grant permission to
+copy a publisher's wording, recordings, examples, or database.
+
+The product may evaluate a licensed dictionary provider, properly attributed
+open data, or Playlexi-owned editorial content. No provider is selected. Before
+production use, the accepted terms must cover the intended commercial model,
+display, narration, caching or offline delivery, permitted modification and
+redaction, attribution, volume, termination, and transfer or change of control.
+
+Narration is audio-first during an active spelling turn:
+
+- the target word, pronunciation, and alternate pronunciations are not shown as
+  ordinary spelling text before the answer is committed;
+- a definition, part of speech, or origin may be displayed only after an
+  automated and editorial check confirms that it does not expose the answer;
+- an example sentence shown during the turn replaces the target word and unsafe
+  variants with a clear blank;
+- the interface identifies what is playing, such as "Definition playing" or
+  "Sentence playing," without displaying a spoiling transcript; and
+- complete educational content may be revealed after the spelling is committed.
+
+Synthetic narration is a candidate, not automatically an authoritative
+pronouncer. Rare-word and alternate pronunciations require source provenance,
+phonetic control where supported, and human review before competitive use.
+Live generative text is not used for definitions or example sentences during a
+game.
+
+Headphones may be recommended for personal play but are not required. Speakers,
+wired audio, Bluetooth routes, and device microphones require separate capture
+and playback validation. Hearing-access accommodations must preserve equivalent
+information where possible; an accommodation that exposes the answer may need a
+separate, clearly labeled scoring category rather than silently changing a
+ranked result.
 
 ## Validation experience
 
@@ -67,11 +196,12 @@ input method, not the authority on what a person said.
 - Adult accent/cohort evaluation before approved child-data collection.
 - Real-device and real-browser evaluation under quiet and noisy conditions.
 
-## Explicitly out of scope until activated
+## Future vision that is out of the current validation scope
 
 - Accounts, profiles, authentication, and cloud synchronization.
 - Server APIs, remote databases, and administrative systems.
-- Multiplayer, matchmaking, rankings, XP, streak economies, or leaderboards.
+- Local multiplayer, online multiplayer, matchmaking, rankings, XP, streak
+  economies, or leaderboards.
 - Friends, chat, notifications, sharing, advertising, or monetization.
 - Competitive-grade anti-cheat claims.
 - Continuous multi-letter recognition as the default interaction.
@@ -111,11 +241,17 @@ baseline. Threshold changes must retain prior results and explain cohort impact.
 ## Open product questions
 
 - What exact child age range is intended?
-- Is Playlexi primarily independent practice, classroom use, family play, or a
-  combination?
+- Which solo modes follow the initial individual practice game, and in what
+  order?
+- Which formal spelling-bee conventions should each competitive mode preserve,
+  simplify, or deliberately change?
+- What result language motivates players without overstating certainty:
+  starting level, provisional rating, skill band, or another label?
+- What round, elimination, scoring, and tie-break rules make one-phone party
+  play fair and enjoyable?
 - Which browser/device versions define initial support?
-- Is voice spelling mandatory or one input method beside typing?
-- Is competitive integrity ever a real requirement?
+- What identity, moderation, minor-safety, fairness, and anti-cheat requirements
+  would online competition need?
 - What launch cohorts and languages follow English?
 
 These questions are resolved before they affect collection, architecture, or

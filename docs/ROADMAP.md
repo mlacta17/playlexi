@@ -15,8 +15,31 @@ ahead of the active phase.
 | 4 | Data and model readiness | Phase 3 evidence | Training pipeline is reproducible; child-data/privacy gate is accepted before any child collection |
 | 5 | Representative recognition | Phase 4 complete | Frozen candidate passes cohort, rejection, latency, device, and noise gates or product direction is reconsidered |
 | 6 | Recovery UX validation | Phase 5 candidate | Representative users complete words and recover from ambiguity within documented gates |
-| 7 | Minimal playable product | Phase 6 complete | Small local game is accessible and usable end-to-end on supported platforms |
+| 7 | Minimal playable product | Phase 6 complete | Small local game and guest-first onboarding are accessible and usable end-to-end on supported platforms |
 | 8 | Production architecture | Demonstrated product need | Backend, identity, persistence, hosting, observability, and release ADRs accepted |
+
+## Product sequencing beyond the active roadmap
+
+The long-term product vision includes individual improvement, serious
+competitive practice, local party play, and online multiplayer. They share the
+same voice-first spelling engine, but they are not built in parallel.
+
+1. Prove individual voice-first spelling and recovery through Phases 1–7.
+2. Test pass-and-play on one shared phone as the first local party format after
+   the minimal playable product works. Add another device or connectivity model
+   only when evidence justifies it and an ADR accepts it.
+3. Activate production architecture only when validated usage requires it.
+4. Treat online multiplayer as a separately gated expansion. Before code, it
+   needs requirements and ADRs for accounts, real-time synchronization,
+   matchmaking, moderation, minor safety, ranking integrity, abuse prevention,
+   privacy, and operating cost.
+
+No social-play work is authorized by this section during the active phase.
+
+Phase 7 should validate whether a guest can complete a short individual game,
+understand a provisional result, and see enough value to choose to save progress.
+It does not authorize authentication: the save-progress prompt may be tested as
+a prototype until Phase 8 accepts the required identity and privacy decisions.
 
 ## Phase 0 deliverables
 
@@ -67,6 +90,10 @@ ahead of the active phase.
   preference.
 - Phase 4 cannot collect child voices until an accepted privacy/consent ADR.
 - Phase 5 freezes a held-out test set before final model selection.
+- Local party play must reuse the validated spelling engine and may not create
+  a second recognition path without evidence and an ADR.
+- Online competition requires accepted safety, identity, synchronization, and
+  competitive-integrity requirements before implementation.
 - Phase 8 remains optional; a successful local product does not automatically
   require a backend.
 

@@ -5,6 +5,12 @@ experience for web, iOS, and Android. Its defining interaction is spelling aloud
 one letter at a time with immediate, fair recovery when speech recognition is
 uncertain.
 
+The general-audience product serves people improving their spelling, preparing
+for spelling-bee competition, and playing with friends or family locally or
+online. Development begins with one small individual experience because all of
+those modes depend on the same trustworthy voice foundation. Voice is the
+primary interaction; typing and touch are the fallback.
+
 The repository is intentionally small. Phase 1 builds only the deterministic
 universal application foundation. There is no backend, database, authentication
 system, microphone capture, or selected production speech engine yet. Those are
@@ -15,12 +21,15 @@ gated decisions, not assumed infrastructure.
 Read these documents in order before making changes:
 
 1. [`AGENTS.md`](AGENTS.md) — repository rules.
-2. [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition and boundaries.
-3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — accepted technical shape.
-4. [`docs/VOICE-VALIDATION.md`](docs/VOICE-VALIDATION.md) — speech evaluation
+2. [`docs/PRD.md`](docs/PRD.md) — agent-ready product requirements and context.
+3. [`docs/DESIGN-BRIEF.md`](docs/DESIGN-BRIEF.md) — visual direction and design
+   exploration brief.
+4. [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition and boundaries.
+5. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — accepted technical shape.
+6. [`docs/VOICE-VALIDATION.md`](docs/VOICE-VALIDATION.md) — speech evaluation
    and data protocol.
-5. [`docs/ROADMAP.md`](docs/ROADMAP.md) — gated delivery sequence.
-6. [`docs/decisions/README.md`](docs/decisions/README.md) — architecture
+7. [`docs/ROADMAP.md`](docs/ROADMAP.md) — gated delivery sequence.
+8. [`docs/decisions/README.md`](docs/decisions/README.md) — architecture
    decisions and their status.
 
 ## Current status
@@ -34,8 +43,25 @@ Read these documents in order before making changes:
 - Backend and database: absent by design.
 - Local environment: web, iOS simulator, and Android emulator prerequisites are
   available. See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
-- Next gate: scaffold and prove the same deterministic spelling flow on web,
-  iOS, and Android before microphone or model integration.
+- Phase 1 implementation: complete; final iOS release verification and the
+  first GitHub CI run remain before the phase gate closes.
+
+## Local development
+
+Use Node.js 24.22.1 and Corepack so the repository selects pnpm 11.25.0. Then:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm web
+```
+
+Use `pnpm ios` or `pnpm android` for a generated native development build. The
+iOS command prepares the temporary framework cache required by this checkout's
+macOS Documents location. Do not hand-edit the ignored generated `ios/` or
+`android/` directories.
 
 ## Legacy repositories
 

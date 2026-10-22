@@ -1,6 +1,6 @@
 # Documentation map
 
-**Last reviewed:** 2026-10-21
+**Last reviewed:** 2026-10-22
 **Status:** Canonical
 
 This directory is the durable context for Playlexi. It describes accepted
@@ -11,6 +11,8 @@ history is the document change log.
 
 | Document | Governs | Does not govern |
 | --- | --- | --- |
+| [`PRD.md`](PRD.md) | Agent-ready synthesis of vision, requirements, hypotheses, and open questions | Permission to override canonical decisions or build future scope |
+| [`DESIGN-BRIEF.md`](DESIGN-BRIEF.md) | Visual direction, references, design constraints, and exploratory deliverables | Final brand approval or implementation scope |
 | [`PRODUCT.md`](PRODUCT.md) | Users, problems, experience, scope | Framework or engine selection |
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | System structure and engineering boundaries | Future feature promises |
 | [`VOICE-VALIDATION.md`](VOICE-VALIDATION.md) | Speech experiments, datasets, metrics, and gates | Product expansion |
@@ -19,6 +21,7 @@ history is the document change log.
 | [`LEGACY-INVENTORY.md`](LEGACY-INVENTORY.md) | Legacy provenance and promotion policy | Permission to copy legacy work |
 | [`GLOSSARY.md`](GLOSSARY.md) | Shared terminology | Product or architecture decisions |
 | [`decisions/`](decisions/README.md) | One specific accepted decision per ADR | General status reporting |
+| [`evidence/`](evidence/README.md) | Reproducible results that support roadmap gates | Architecture decisions |
 
 For a specific technical decision, an accepted ADR wins. Otherwise,
 `ARCHITECTURE.md` wins over `PRODUCT.md`; the active roadmap phase limits both.

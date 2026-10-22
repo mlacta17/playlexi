@@ -1,6 +1,6 @@
 # Glossary
 
-**Last reviewed:** 2026-10-21
+**Last reviewed:** 2026-10-22
 
 - **Adapter:** Platform- or engine-specific implementation of a shared contract.
 - **Attempt:** One deliberate capture submitted for one letter decision.
@@ -37,3 +37,5 @@
   three candidates.
 - **Universal client:** Shared Expo application targeting web, iOS, and Android;
   it does not imply identical platform adapters.
+- **Voice-first:** Voice is the primary intended interaction, while typing and
+  touch remain available for accessibility, recovery, or unavailable audio.

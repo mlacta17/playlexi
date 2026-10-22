@@ -1,7 +1,7 @@
 # Development environment
 
 **Last checked:** 2026-10-22
-**Status:** Web, iOS, and Android toolchains available; Phase 1 toolchain selected
+**Status:** Phase 1 web, iOS, and Android baselines verified
 
 This document records observed local facts. It does not install or upgrade host
 software and does not select project dependency versions.
@@ -21,16 +21,17 @@ software and does not select project dependency versions.
 | Swift | 6.4, targeting arm64 macOS 27 | Verified |
 | iOS SDK | iOS 27.1 and iOS Simulator 27.1 SDKs | Verified |
 | Available iOS simulator runtime | iOS 18.3.1 with iPhone 16-family devices | Sufficient for initial deterministic builds; add a newer runtime only if selected support policy requires it |
+| CocoaPods | 1.17.0 under the current user's Homebrew Ruby gem directory | Verified without changing the older root-owned Homebrew Ruby directory |
 | Physical iPhone | Not visible during verification | Connect and pair before real-device capture validation |
 | Android Studio | 2026.2, build AI-262.9437.185.2621.16467767 | Application is installed |
-| Android Studio bundled JDK | OpenJDK 25.0.3 | Available; project compatibility remains to be verified against the generated Gradle build |
-| Android SDK | `~/Library/Android/sdk`; platform and sources 37.0; build tools 36.0.0 | Installed |
+| Android Studio bundled JDK | OpenJDK 25.0.3 | Verified by the generated Android build |
+| Android SDK | `~/Library/Android/sdk`; platform and sources 37.0; build tools 37.0.0 | Verified by the generated Android build |
 | Android Debug Bridge | 1.0.41 / 37.0.1 at `~/Library/Android/sdk/platform-tools/adb` | Installed but not currently on the interactive shell PATH |
 | Android emulator | Installed with Android 37 Google Play arm64 image | Verified |
 | Android virtual device | `Medium_Phone_API_37.0` | Available for Phase 1 |
 
-The deterministic implementation may begin with the versions accepted in
-ADR-007. Phase 1 cannot exit until iOS and Android builds also succeed.
+The deterministic implementation uses the versions accepted in ADR-007. The
+first web, iOS simulator, and Android emulator builds succeeded on 2026-10-22.
 
 ## Selected scaffolding baseline
 
@@ -56,9 +57,16 @@ swift --version
 xcrun simctl list devices available
 ```
 
-The first simulator build must still run successfully. Before real-device
-capture validation, connect and pair the target iPhone, record its model and OS,
-and verify signing without recording account identifiers.
+The deterministic application built, installed, and opened on an iPhone 16 Pro
+simulator with zero Xcode build errors or warnings. Because this checkout is in
+a file-provider-managed Documents folder, run `pnpm prepare:ios` before a clean
+iOS build and set `EXPO_CUSTOM_BUILD_ROOT=/private/tmp/playlexi-expo-jsi` for
+the Expo command. This prevents macOS extended attributes from entering the
+generated ExpoModulesJSI framework and breaking code signing.
+
+Before real-device capture validation, connect and pair the target iPhone,
+record its model and OS, and verify signing without recording account
+identifiers.
 
 ## Verified Android baseline
 
@@ -75,9 +83,12 @@ During scaffolding, record:
 "$HOME/Library/Android/sdk/emulator/emulator" -list-avds
 ```
 
-Also record the Android Gradle Plugin and Gradle versions produced by the Expo
-scaffold and run the first emulator build. A physical Android device is not
-required for Phase 1, but is required before capture/recognition claims.
+The generated Expo project used Gradle 9.4.1, compile SDK 37, target SDK 36,
+minimum SDK 24, NDK 27.1.12297006, and Kotlin 2.2.10. It built, installed, and
+opened on the `Medium_Phone_API_37.0` emulator. Upstream Expo and React Native
+dependencies emitted deprecation warnings; the build itself completed
+successfully. A physical Android device is not required for Phase 1, but is
+required before capture or recognition claims.
 
 Do not invent `JAVA_HOME`, Android SDK paths, or Gradle versions before the
 supported Expo toolchain is selected.

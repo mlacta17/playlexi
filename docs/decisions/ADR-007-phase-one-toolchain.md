@@ -37,8 +37,15 @@ For Phase 1:
 - use Expo Router and strict TypeScript as accepted by ADR-004;
 - use Jest 30 with `jest-expo` and React Native Testing Library 14 or newer for
   domain and component tests; and
+- use Expo's ESLint configuration for consistent static checks; and
 - use ordinary workspace scripts without Turborepo, Nx, or another build
   orchestrator.
+
+Because this checkout is stored in a macOS file-provider-managed Documents
+folder, ExpoModulesJSI's generated framework cache must live under the local
+temporary directory. The repository provides an idempotent preparation script
+and sets `EXPO_CUSTOM_BUILD_ROOT` for iOS builds; generated native projects and
+the cache remain uncommitted.
 
 All direct dependencies use exact versions. Transitive versions are fixed by
 the committed pnpm lockfile. Expo-managed package versions are installed with
@@ -55,6 +62,9 @@ the committed pnpm lockfile. Expo-managed package versions are installed with
   inferred from its compatibility table.
 - Node and dependency upgrades are deliberate changes with verification, not
   floating updates.
+- The iOS cache workaround is local build plumbing, not an application
+  dependency, and can be removed if the checkout moves outside file-provider
+  storage or the upstream generator stops copying extended attributes.
 
 ## Alternatives considered
 

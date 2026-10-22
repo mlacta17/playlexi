@@ -12,6 +12,7 @@ ADR and mark the earlier record superseded instead of deleting history.
 | [ADR-005](ADR-005-evidence-first-speech-selection.md) | Keep recognition provider-neutral and select through benchmarks | Accepted |
 | [ADR-006](ADR-006-local-only-validation.md) | Keep validation phases local with no backend or database | Accepted |
 | [ADR-007](ADR-007-phase-one-toolchain.md) | Pin the Phase 1 universal toolchain | Accepted |
+| [ADR-008](ADR-008-github-actions-ci.md) | Use GitHub Actions for foundation CI | Accepted |
 
 Use [`ADR-TEMPLATE.md`](ADR-TEMPLATE.md) for new decisions. Dependencies,
 providers, model runtimes, persistence, remote APIs, raw-audio retention,
