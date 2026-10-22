@@ -1,8 +1,9 @@
 # ADR-003: Local-only Phase 0 with no backend or database
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-006
 - **Date:** 2026-09-16
 - **Deciders:** Product owner and engineering
+- **Superseded by:** ADR-006
 
 ## Context
 

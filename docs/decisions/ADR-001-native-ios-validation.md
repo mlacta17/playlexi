@@ -1,8 +1,9 @@
 # ADR-001: Native iOS application for voice validation
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-004
 - **Date:** 2026-09-16
 - **Deciders:** Product owner and engineering
+- **Superseded by:** ADR-004
 
 ## Context
 

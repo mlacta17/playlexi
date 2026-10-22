@@ -1,15 +1,18 @@
 # Architecture decision records
 
-ADRs capture decisions that would otherwise be repeatedly rediscovered. They are
-immutable in outcome: if a decision changes, add a superseding ADR and mark the
-old one superseded instead of rewriting its history.
+ADRs preserve why a decision was made. When direction changes, add a superseding
+ADR and mark the earlier record superseded instead of deleting history.
 
 | ADR | Decision | Status |
 | --- | --- | --- |
-| [ADR-001](ADR-001-native-ios-validation.md) | Use a native SwiftUI application for voice validation | Accepted |
+| [ADR-001](ADR-001-native-ios-validation.md) | Use native SwiftUI for the original validation baseline | Superseded by ADR-004 |
 | [ADR-002](ADR-002-isolated-letter-input.md) | Validate isolated letters before continuous spelling | Accepted |
-| [ADR-003](ADR-003-local-only-phase-zero.md) | Keep Phase 0 local with no backend or database | Accepted |
+| [ADR-003](ADR-003-local-only-phase-zero.md) | Keep the original Phase 0 local | Superseded by ADR-006 |
+| [ADR-004](ADR-004-universal-expo-client.md) | Use an Expo universal validation client | Accepted |
+| [ADR-005](ADR-005-evidence-first-speech-selection.md) | Keep recognition provider-neutral and select through benchmarks | Accepted |
+| [ADR-006](ADR-006-local-only-validation.md) | Keep validation phases local with no backend or database | Accepted |
 
 Use [`ADR-TEMPLATE.md`](ADR-TEMPLATE.md) for new decisions. Dependencies,
-providers, persistence, remote APIs, retained audio, minimum OS changes, and
-architecture conventions always require an ADR.
+providers, model runtimes, persistence, remote APIs, raw-audio retention,
+child-data collection, minimum platform versions, and architecture conventions
+require an ADR before implementation.

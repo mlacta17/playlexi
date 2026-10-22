@@ -1,6 +1,6 @@
 # Legacy inventory and provenance
 
-**Last reviewed:** 2026-09-16
+**Last reviewed:** 2026-10-21
 **Status:** Reference only
 
 ## Source repositories inspected
@@ -13,6 +13,8 @@
 | `/Users/mariaciannelactao/Documents/app.playlexi` | `main` | `e3b57f1` — 2025-12-12 | Early UI prototype |
 
 These paths are developer-machine references, not build dependencies.
+Legacy Markdown, agent instructions, skills, prompts, package manifests, and
+tool configuration are not read as authority for the new repository.
 
 ## Verified legacy findings
 

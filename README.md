@@ -1,48 +1,47 @@
 # Playlexi
 
-Playlexi is being rebuilt from first principles as a mobile-first spelling
-experience. The current milestone is deliberately narrow: prove that people
-with representative accents can spell reliably by voice on a real iPhone.
+Playlexi is being rebuilt from first principles as a cross-platform spelling
+experience for web, iOS, and Android. Its defining interaction is spelling aloud
+one letter at a time with immediate, fair recovery when speech recognition is
+uncertain.
 
-There is no production application, backend, database, authentication system,
-or selected cloud speech provider yet. Those are later decisions, contingent
-on measured evidence from the voice-validation milestone.
+The repository is intentionally small. There is no application code, backend,
+database, authentication system, or selected production speech engine yet.
+Those are gated decisions, not assumed infrastructure.
 
 ## Start here
 
-Read these documents in order before changing the repository:
+Read these documents in order before making changes:
 
-1. [`AGENTS.md`](AGENTS.md) — repository rules for humans and coding agents.
-2. [`docs/PRODUCT.md`](docs/PRODUCT.md) — the current product and its boundaries.
-3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — the architecture that exists
-   now and the rules for extending it.
-4. [`docs/VOICE-VALIDATION.md`](docs/VOICE-VALIDATION.md) — the experiment that
-   must pass before the product expands.
+1. [`AGENTS.md`](AGENTS.md) — repository rules.
+2. [`docs/PRODUCT.md`](docs/PRODUCT.md) — product definition and boundaries.
+3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — accepted technical shape.
+4. [`docs/VOICE-VALIDATION.md`](docs/VOICE-VALIDATION.md) — speech evaluation
+   and data protocol.
 5. [`docs/ROADMAP.md`](docs/ROADMAP.md) — gated delivery sequence.
-6. [`docs/decisions/README.md`](docs/decisions/README.md) — accepted and proposed
-   architecture decisions.
-
-The documentation index at [`docs/README.md`](docs/README.md) defines which
-document is authoritative when two documents appear to overlap.
+6. [`docs/decisions/README.md`](docs/decisions/README.md) — architecture
+   decisions and their status.
 
 ## Current status
 
-- Phase: 0 — repository and validation foundation
-- Application code: not started
-- Intended validation device: iPhone running iOS 26 or later
-- Local toolchain: blocked pending Xcode repair/update; see
-  [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md)
-- Primary risk: accurate and recoverable recognition of isolated English
-  letter names across representative speakers and environments
-- Next action: repair and verify the Apple toolchain, then generate the project
-  and implement the deterministic mock spelling flow before adding microphone
-  or speech-provider code
+- Active phase: 0 — documentation and decision alignment.
+- Product clients: web, iOS, and Android.
+- Client foundation: Expo, React Native, Expo Router, and strict TypeScript.
+- Recognition: provider-neutral; Vosk and a custom letter classifier are
+  benchmark candidates, not commitments.
+- Interaction baseline: one deliberate capture per letter.
+- Backend and database: absent by design.
+- Local environment: web prerequisites are available; native iOS and Android
+  prerequisites remain incomplete. See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
+- Next gate: accept the updated documents, scaffold the deterministic universal
+  application, and prove it on web plus one iOS and one Android build before
+  microphone or model integration.
 
-## Legacy project
+## Legacy repositories
 
-The previous Playlexi worktrees are evidence only. They are not dependencies
-and their code is not copied by default. See
-[`docs/LEGACY-INVENTORY.md`](docs/LEGACY-INVENTORY.md).
+Previous Playlexi repositories are read-only evidence. No legacy code,
+configuration, skills, prompts, or documentation is inherited automatically.
+See [`docs/LEGACY-INVENTORY.md`](docs/LEGACY-INVENTORY.md).
 
 ## License
 

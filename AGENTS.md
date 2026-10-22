@@ -1,80 +1,87 @@
 # Playlexi — repository instructions
 
 This is the canonical rules file for every coding agent and contributor working
-in this repository. Keep it concise; detailed context belongs in `docs/`.
+in this repository. Detailed product and technical context belongs in `docs/`.
 
-## Authority and required reading
+## Required reading and authority
 
 Before changing code or documentation, read:
 
-1. `docs/PRODUCT.md` for product scope.
-2. `docs/ARCHITECTURE.md` for technical boundaries.
-3. `docs/VOICE-VALIDATION.md` for the active validation protocol.
-4. `docs/ROADMAP.md` for the current phase gate.
+1. `docs/PRODUCT.md` for the product and its boundaries.
+2. `docs/ARCHITECTURE.md` for system structure and dependency rules.
+3. `docs/VOICE-VALIDATION.md` for the active speech experiment.
+4. `docs/ROADMAP.md` for the current phase and its exit gate.
 5. Relevant accepted ADRs in `docs/decisions/`.
 
 Precedence is: accepted ADRs for a specific decision, then
-`ARCHITECTURE.md`, then `PRODUCT.md`, then the active phase in `ROADMAP.md`.
-If documents conflict, stop and correct the documents before implementing.
+`ARCHITECTURE.md`, then `PRODUCT.md`, then the active roadmap phase. Resolve
+conflicts in documentation before implementing code.
 
-## Current scope
+## Current direction
 
-The active milestone is an iOS voice-validation application, not the complete
-Playlexi product. It contains a deterministic spelling session, native audio
-capture, one-letter-at-a-time recognition, correction/retry controls, local
-diagnostics, and a small bundled word list.
+Playlexi is a new cross-platform spelling product targeting web, iOS, and
+Android. The client foundation is Expo, React Native, Expo Router, and strict
+TypeScript. Shared product behavior is cross-platform; capture and recognition
+remain replaceable platform adapters.
 
-Do not add accounts, a backend, a database, multiplayer, rankings, XP,
-leaderboards, social features, monetization, analytics SDKs, or a cloud speech
-provider unless the roadmap explicitly activates that work and an ADR accepts
-the decision.
+The active milestone is documentation alignment and a deterministic universal
+spelling flow. It is not the complete product. Do not add microphone capture,
+speech engines, accounts, a backend, a database, multiplayer, rankings,
+monetization, or production analytics before the roadmap activates that work.
 
-## Evidence rules
+## Evidence and speech rules
 
-- Never claim that a speech provider, Apple framework, device, accent, or audio
-  configuration works without an official source and real-device evidence.
-- Separate facts, hypotheses, and open questions in documentation.
-- Provider marketing is not validation. Record OS version, device, build,
-  locale, sample count, cohort, failures, latency, and test date.
+- A speech engine is a candidate until a recorded benchmark proves it.
+- Do not assume Vosk, Apple, Google, Rhino, or a custom model is the winner.
+- Recognition receives audio and capture metadata, never the expected letter or
+  target spelling. Expected length may belong to the spelling session.
+- Capture one letter per attempt until an accepted ADR and evidence authorize a
+  continuous-spelling mode.
+- Do not treat `[unk]`, confidence, duration, or timestamps as proof of cheating.
+- Report per-letter, per-cohort, per-platform, per-device, and per-condition
+  results; an overall average is insufficient.
+- Dataset partitions are speaker-disjoint. Keep a participant, household, and
+  preferably recording device in only one train/validation/test partition.
 - Never tune against only the repository owner's voice.
-- Do not use the correct spelling as a hidden recognition hint. Expected word
-  length may be used; the answer may not.
-- A third-party dependency requires an accepted ADR before installation.
+- Raw audio is not committed to Git. Child voice collection is prohibited until
+  an accepted privacy/consent ADR and approved collection protocol exist.
 
 ## Engineering rules
 
-- Prefer small, explicit Swift types over frameworks and abstractions.
-- Keep domain models independent of SwiftUI, audio frameworks, and providers.
-- Put external systems behind narrow protocols and include deterministic fakes.
-- Model the spelling session as explicit states; invalid transitions must be
-  impossible or rejected visibly.
-- Validate all data at boundaries, including bundled JSON and imported result
-  files. Never force-cast external data.
-- Use structured concurrency. UI state changes belong on `@MainActor`; audio
-  work must not block the main thread.
-- No singleton service locators or global mutable state.
-- Do not log raw audio, transcripts, secrets, email addresses, or device
-  identifiers. Debug logs must be safe to retain.
-- Raw voice recordings are ephemeral by default. Retention requires explicit
-  consent and an accepted privacy ADR.
-- Every behavior change needs tests proportional to its risk. Recognition
-  adapters require fixture and contract tests; real-device results remain a
-  separate validation gate.
-- New non-obvious directories require a short `README.md` explaining their
-  purpose, permitted contents, and dependencies.
-- Junior-readable code wins over cleverness. Name units, thresholds, states,
-  and failure modes explicitly.
+- Junior-readable code wins over cleverness.
+- Keep domain models independent of React, React Native, Expo, browsers, native
+  modules, and recognition providers.
+- Put audio capture, recognition runtimes, storage, and network systems behind
+  narrow typed contracts with deterministic fakes.
+- Model spelling sessions as explicit states and events. Reject invalid
+  transitions visibly.
+- Validate external data at boundaries. Avoid unsafe casts and unvalidated
+  provider payloads.
+- No global mutable state or singleton service locators.
+- Do not log raw audio, transcripts, secrets, stable device identifiers, or
+  personal data.
+- Every behavior change needs tests proportional to its risk. Real-device
+  evidence is separate from unit and integration tests.
+- Add a short `README.md` to every non-obvious directory.
+- Pin runtime and dependency versions when the application is scaffolded. Do
+  not select packages merely because they are newest.
 
-## Architecture change rule
+## Architecture changes
 
-Create or update an ADR before implementing any decision-shaped change,
-including a new dependency, backend, database, remote API, persistence model,
-speech provider, supported OS change, audio retention, or convention deviation.
-Use `docs/decisions/ADR-TEMPLATE.md`.
+Create or supersede an ADR before implementing a decision-shaped change,
+including a new dependency, speech engine, model runtime, backend, database,
+remote API, persistence model, audio-retention policy, supported-platform
+change, or convention deviation. Use `docs/decisions/ADR-TEMPLATE.md`.
 
-## Completion rule
+## Legacy boundary
 
-A task is complete only when relevant tests pass, documentation matches the
-implemented behavior, no scope boundary is crossed, and real-device claims are
-backed by recorded evidence. Do not silently weaken validation gates to finish
-a task.
+Legacy Playlexi repositories are read-only evidence. They are not dependencies,
+and their code, configuration, Markdown, prompts, skills, or architecture are
+not imported by default. Follow `docs/LEGACY-INVENTORY.md` before promoting any
+specific asset.
+
+## Completion
+
+A task is complete only when relevant automated checks pass, documentation
+matches behavior, no roadmap boundary is crossed, and device/provider claims
+are supported by recorded evidence.

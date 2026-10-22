@@ -1,28 +1,39 @@
 # Glossary
 
-**Last reviewed:** 2026-09-16
+**Last reviewed:** 2026-10-21
 
-- **Attempt:** One capture submitted for recognition, normally containing one
-  isolated letter in Phase 0.
-- **Candidate:** A possible recognized letter with optional provider evidence.
-- **Capture:** The lifecycle and audio buffer produced between a deliberate start
-  and stop.
-- **Cohort:** A consented analysis grouping. It is reported without assuming that
-  every member speaks alike.
+- **Adapter:** Platform- or engine-specific implementation of a shared contract.
+- **Attempt:** One deliberate capture submitted for one letter decision.
+- **Candidate:** A possible recognized letter with optional engine evidence.
+- **Capture:** Permission, lifecycle, and audio produced between a deliberate
+  start and stop.
+- **Classifier:** A model that selects among bounded outcomes such as A–Z and
+  rejection classes rather than producing open-ended dictation.
+- **Cohort:** A consented, self-described analysis grouping. It does not imply
+  that all members speak alike.
 - **Correction:** A player-selected replacement for a recognition candidate.
-- **Diagnostic:** Sanitized technical metadata used to understand performance;
-  it excludes raw audio and stable personal identifiers by default.
-- **Ground truth:** The letter or sequence the experiment asked the participant
-  to say, recorded before recognition.
-- **Provider:** An implementation performing recognition, whether Apple on-device
-  or a later remote service.
-- **Recognizer:** The provider-neutral component that returns ranked letter
-  candidates from captured audio.
-- **Recovery:** Retry, candidate selection, correction, or cancellation after an
-  uncertain or failed recognition result.
-- **Session:** A sequence of words or validation prompts completed in one run.
-- **Spelling sequence:** Ordered letters assembled into a proposed spelling.
-- **Top-1 accuracy:** Fraction of valid attempts whose first candidate equals
-  ground truth.
-- **Top-3 coverage:** Fraction whose ground truth occurs among the first three
-  candidates.
+- **Diagnostic:** Sanitized technical metadata; it excludes raw audio, raw
+  transcripts, and stable personal identifiers by default.
+- **Engine:** A recognition implementation or model runtime under evaluation.
+- **Ground truth:** The prompted class or scripted negative category recorded
+  before recognition.
+- **Negative input:** Audio that should not become a letter, including whole
+  words, multiple letters, unrelated speech, silence, and noise.
+- **Provider:** An organization or service supplying an engine. An on-device
+  open-source engine may have no remote provider.
+- **Recognizer:** The provider-neutral component returning ranked letter
+  candidates or a typed rejection from captured audio.
+- **Recovery:** Retry, candidate selection, manual correction, deletion, or
+  cancellation after uncertainty or failure.
+- **Rejection:** A deliberate non-letter outcome rather than forcing audio into
+  A–Z.
+- **Session:** A sequence of validation prompts or spelling words in one run.
+- **Speaker-disjoint:** No participant appears in more than one dataset
+  partition.
+- **Spelling sequence:** Ordered accepted letters forming a proposed spelling.
+- **Top-1 accuracy:** Fraction of valid letter attempts whose first candidate
+  equals ground truth.
+- **Top-3 coverage:** Fraction whose ground-truth letter appears among the first
+  three candidates.
+- **Universal client:** Shared Expo application targeting web, iOS, and Android;
+  it does not imply identical platform adapters.
