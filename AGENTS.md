@@ -24,10 +24,10 @@ Android. The client foundation is Expo, React Native, Expo Router, and strict
 TypeScript. Shared product behavior is cross-platform; capture and recognition
 remain replaceable platform adapters.
 
-The active milestone is documentation alignment and a deterministic universal
-spelling flow. It is not the complete product. Do not add microphone capture,
-speech engines, accounts, a backend, a database, multiplayer, rankings,
-monetization, or production analytics before the roadmap activates that work.
+Phase 1's documentation alignment and deterministic universal spelling flow are
+complete. Phase 2 is not yet active. Do not add microphone capture, speech
+engines, accounts, a backend, a database, multiplayer, rankings, monetization,
+or production analytics before the roadmap activates that work.
 
 ## Evidence and speech rules
 

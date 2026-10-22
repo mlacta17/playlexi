@@ -1,7 +1,7 @@
 # Gated roadmap
 
 **Last reviewed:** 2026-10-22
-**Active phase:** Phase 1 — deterministic universal foundation
+**Active phase:** None — Phase 1 is complete; Phase 2 awaits explicit activation
 
 The phases are gates, not calendar promises. Later rows do not authorize work
 ahead of the active phase.
@@ -9,7 +9,7 @@ ahead of the active phase.
 | Phase | Objective | Entry gate | Exit gate | Status |
 | --- | --- | --- | --- | --- |
 | 0 | Align product, architecture, privacy boundaries, and roadmap | Clean repository | Canonical documents agree; superseding ADRs accepted; environment gaps recorded | Complete — 2026-10-22 |
-| 1 | Deterministic universal foundation | Phase 0 complete | Same tested spelling flow works on web, iOS, and Android without microphone or recognition | Active |
+| 1 | Deterministic universal foundation | Phase 0 complete | Same tested spelling flow works on web, iOS, and Android without microphone or recognition | Complete — 2026-10-22 |
 | 2 | Cross-platform capture | Phase 1 complete and native tools verified | Permission, lifecycle, interruption, cleanup, and audio-health evidence pass on all platforms |
 | 3 | Speech-engine baseline | Phase 2 complete | Vosk and custom-classifier baselines compared on speaker-disjoint adult data and required negatives |
 | 4 | Data and model readiness | Phase 3 evidence | Training pipeline is reproducible; child-data/privacy gate is accepted before any child collection |

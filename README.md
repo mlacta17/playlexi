@@ -11,7 +11,7 @@ online. Development begins with one small individual experience because all of
 those modes depend on the same trustworthy voice foundation. Voice is the
 primary interaction; typing and touch are the fallback.
 
-The repository is intentionally small. Phase 1 builds only the deterministic
+The repository is intentionally small. Phase 1 established the deterministic
 universal application foundation. There is no backend, database, authentication
 system, microphone capture, or selected production speech engine yet. Those are
 gated decisions, not assumed infrastructure.
@@ -34,7 +34,7 @@ Read these documents in order before making changes:
 
 ## Current status
 
-- Active phase: 1 — deterministic universal foundation.
+- Active phase: none; Phase 1 is complete and Phase 2 awaits explicit activation.
 - Product clients: web, iOS, and Android.
 - Client foundation: Expo, React Native, Expo Router, and strict TypeScript.
 - Recognition: provider-neutral; Vosk and a custom letter classifier are
@@ -43,8 +43,8 @@ Read these documents in order before making changes:
 - Backend and database: absent by design.
 - Local environment: web, iOS simulator, and Android emulator prerequisites are
   available. See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
-- Phase 1 implementation: complete; final iOS release verification and the
-  first GitHub CI run remain before the phase gate closes.
+- Phase 1: complete; web, iOS, Android, automated tests, and the first GitHub CI
+  run passed.
 
 ## Local development
 

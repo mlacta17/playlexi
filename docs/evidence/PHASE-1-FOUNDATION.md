@@ -12,6 +12,8 @@
 - The production web export succeeds.
 - The native project builds install and open on an iPhone simulator and Android
   emulator, including self-contained release builds that do not require Metro.
+- The first GitHub Actions run reproduces the install, compatibility, lint,
+  typecheck, test, and web-export checks on a clean Linux runner.
 
 ## Automated results
 
@@ -25,6 +27,7 @@
 | Static web export | Passed; three routes exported |
 | iOS simulator | Debug build passed with 0 errors and 0 warnings; Release build, direct relaunch, and rendered-screen check passed |
 | Android emulator | Debug and self-contained release builds passed; release screen rendered after install |
+| GitHub Actions CI | Passed all steps in 1m 3s ([run 39841614127](https://github.com/mlacta17/playlexi/actions/runs/39841614127)) |
 
 The iOS Release build embedded its JavaScript and assets, installed on an
 iPhone 16 Pro simulator, and built with 0 errors. After the Expo command exited,

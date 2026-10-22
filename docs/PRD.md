@@ -156,13 +156,13 @@ The requirement identifiers remain stable even when wording is refined.
 
 | ID | Requirement | Priority | Delivery status |
 | --- | --- | --- | --- |
-| CORE-001 | One shared product must target web, iOS, and Android. | Must | Accepted; foundation active |
-| CORE-002 | The deterministic spelling session must behave consistently across platforms. | Must | Active Phase 1 |
+| CORE-001 | One shared product must target web, iOS, and Android. | Must | Phase 1 complete |
+| CORE-002 | The deterministic spelling session must behave consistently across platforms. | Must | Phase 1 complete |
 | VOICE-001 | Voice must be the primary intended spelling input. | Must | Accepted; capture deferred |
 | VOICE-002 | The default validated interaction must capture one deliberate letter attempt at a time. | Must | Accepted |
 | VOICE-003 | Recognition must return uncertainty or rejection instead of forcing every input into A–Z. | Must | Accepted; engine unselected |
 | VOICE-004 | Recognition must never receive the expected letter or target word. | Must | Accepted |
-| RECOVERY-001 | A player must be able to retry, inspect candidates, correct, delete, or cancel. | Must | Foundation active |
+| RECOVERY-001 | A player must be able to retry, inspect candidates, correct, delete, or cancel. | Must | Phase 1 complete |
 | RECOVERY-002 | Recognition uncertainty must not automatically count as a spelling error. | Must | Accepted |
 | ACCESS-001 | The primary flow must support touch, keyboard, screen readers, text scaling, adequate targets, and non-color-only status. | Must | Accepted |
 | ONBOARD-001 | A new player should be able to try the initial game as a guest. | Must for playable product | Hypothesis; Phase 7 |
