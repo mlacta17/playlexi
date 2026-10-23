@@ -17,6 +17,7 @@ history is the document change log.
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | System structure and engineering boundaries | Future feature promises |
 | [`VOICE-VALIDATION.md`](VOICE-VALIDATION.md) | Speech experiments, datasets, metrics, and gates | Product expansion |
 | [`ROADMAP.md`](ROADMAP.md) | Work order and phase entry/exit gates | Detailed implementation |
+| [`PHASE-2-CAPTURE.md`](PHASE-2-CAPTURE.md) | Active capture scope, slices, evidence matrix, and exit criteria | Recognition or later product work |
 | [`ENVIRONMENT.md`](ENVIRONMENT.md) | Observed local prerequisites | Product or architecture decisions |
 | [`LEGACY-INVENTORY.md`](LEGACY-INVENTORY.md) | Legacy provenance and promotion policy | Permission to copy legacy work |
 | [`GLOSSARY.md`](GLOSSARY.md) | Shared terminology | Product or architecture decisions |

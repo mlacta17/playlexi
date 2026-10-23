@@ -13,6 +13,7 @@ ADR and mark the earlier record superseded instead of deleting history.
 | [ADR-006](ADR-006-local-only-validation.md) | Keep validation phases local with no backend or database | Accepted |
 | [ADR-007](ADR-007-phase-one-toolchain.md) | Pin the Phase 1 universal toolchain | Accepted |
 | [ADR-008](ADR-008-github-actions-ci.md) | Use GitHub Actions for foundation CI | Accepted |
+| [ADR-009](ADR-009-expo-audio-capture.md) | Use Expo Audio PCM streaming for Phase 2 capture | Accepted |
 
 Use [`ADR-TEMPLATE.md`](ADR-TEMPLATE.md) for new decisions. Dependencies,
 providers, model runtimes, persistence, remote APIs, raw-audio retention,

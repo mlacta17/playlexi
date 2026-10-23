@@ -12,9 +12,10 @@ those modes depend on the same trustworthy voice foundation. Voice is the
 primary interaction; typing and touch are the fallback.
 
 The repository is intentionally small. Phase 1 established the deterministic
-universal application foundation. There is no backend, database, authentication
-system, microphone capture, or selected production speech engine yet. Those are
-gated decisions, not assumed infrastructure.
+universal application foundation. Phase 2 now validates short microphone
+capture independently from recognition. There is no backend, database,
+authentication system, or selected production speech engine. Those are gated
+decisions, not assumed infrastructure.
 
 ## Start here
 
@@ -29,12 +30,13 @@ Read these documents in order before making changes:
 6. [`docs/VOICE-VALIDATION.md`](docs/VOICE-VALIDATION.md) — speech evaluation
    and data protocol.
 7. [`docs/ROADMAP.md`](docs/ROADMAP.md) — gated delivery sequence.
-8. [`docs/decisions/README.md`](docs/decisions/README.md) — architecture
+8. [`docs/PHASE-2-CAPTURE.md`](docs/PHASE-2-CAPTURE.md) — active capture brief.
+9. [`docs/decisions/README.md`](docs/decisions/README.md) — architecture
    decisions and their status.
 
 ## Current status
 
-- Active phase: none; Phase 1 is complete and Phase 2 awaits explicit activation.
+- Active phase: 2 — cross-platform microphone capture.
 - Product clients: web, iOS, and Android.
 - Client foundation: Expo, React Native, Expo Router, and strict TypeScript.
 - Recognition: provider-neutral; Vosk and a custom letter classifier are

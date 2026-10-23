@@ -1,6 +1,6 @@
 # Technical architecture
 
-**Version:** 0.3
+**Version:** 0.4
 **Last reviewed:** 2026-10-22
 **Status:** Accepted for validation phases
 
@@ -68,6 +68,11 @@ policy.
 ADR-008 uses GitHub Actions for fast Linux CI checks, with official actions
 pinned to immutable commits. Native builds remain documented local evidence
 until capture work or release cadence justifies hosted native CI.
+
+ADR-009 uses Expo Audio 58.0.10 behind the provider-neutral `AudioCapture`
+contract for Phase 2. The adapter requests short, foreground-only PCM streams;
+health metrics are reduced in memory and sample buffers are immediately
+discarded. Background recording and audio-file creation remain disabled.
 
 Primary references checked 2026-10-21:
 

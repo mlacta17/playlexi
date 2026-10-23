@@ -1,7 +1,7 @@
 # Gated roadmap
 
 **Last reviewed:** 2026-10-22
-**Active phase:** None — Phase 1 is complete; Phase 2 awaits explicit activation
+**Active phase:** Phase 2 — cross-platform capture
 
 The phases are gates, not calendar promises. Later rows do not authorize work
 ahead of the active phase.
@@ -10,13 +10,13 @@ ahead of the active phase.
 | --- | --- | --- | --- | --- |
 | 0 | Align product, architecture, privacy boundaries, and roadmap | Clean repository | Canonical documents agree; superseding ADRs accepted; environment gaps recorded | Complete — 2026-10-22 |
 | 1 | Deterministic universal foundation | Phase 0 complete | Same tested spelling flow works on web, iOS, and Android without microphone or recognition | Complete — 2026-10-22 |
-| 2 | Cross-platform capture | Phase 1 complete and native tools verified | Permission, lifecycle, interruption, cleanup, and audio-health evidence pass on all platforms |
-| 3 | Speech-engine baseline | Phase 2 complete | Vosk and custom-classifier baselines compared on speaker-disjoint adult data and required negatives |
-| 4 | Data and model readiness | Phase 3 evidence | Training pipeline is reproducible; child-data/privacy gate is accepted before any child collection |
-| 5 | Representative recognition | Phase 4 complete | Frozen candidate passes cohort, rejection, latency, device, and noise gates or product direction is reconsidered |
-| 6 | Recovery UX validation | Phase 5 candidate | Representative users complete words and recover from ambiguity within documented gates |
-| 7 | Minimal playable product | Phase 6 complete | Small local game and guest-first onboarding are accessible and usable end-to-end on supported platforms |
-| 8 | Production architecture | Demonstrated product need | Backend, identity, persistence, hosting, observability, and release ADRs accepted |
+| 2 | Cross-platform capture | Phase 1 complete and native tools verified | Permission, lifecycle, interruption, cleanup, and audio-health evidence pass on all platforms | Active — 2026-10-22 |
+| 3 | Speech-engine baseline | Phase 2 complete | Vosk and custom-classifier baselines compared on speaker-disjoint adult data and required negatives | Not started |
+| 4 | Data and model readiness | Phase 3 evidence | Training pipeline is reproducible; child-data/privacy gate is accepted before any child collection | Not started |
+| 5 | Representative recognition | Phase 4 complete | Frozen candidate passes cohort, rejection, latency, device, and noise gates or product direction is reconsidered | Not started |
+| 6 | Recovery UX validation | Phase 5 candidate | Representative users complete words and recover from ambiguity within documented gates | Not started |
+| 7 | Minimal playable product | Phase 6 complete | Small local game and guest-first onboarding are accessible and usable end-to-end on supported platforms | Not started |
+| 8 | Production architecture | Demonstrated product need | Backend, identity, persistence, hosting, observability, and release ADRs accepted | Not started |
 
 ## Product sequencing beyond the active roadmap
 
@@ -83,9 +83,28 @@ a prototype until Phase 8 accepts the required identity and privacy decisions.
 - Backend, database, accounts, synchronization, or telemetry.
 - Training or child-data collection.
 
+## Phase 2 scope
+
+- Implement the provider-neutral audio-capture contract and deterministic fake.
+- Implement sanitized PCM health metrics.
+- Add the Expo Audio adapter accepted by ADR-009.
+- Add a separate, accessible microphone health-check screen.
+- Prove permission, foreground lifecycle, interruption, cancellation, retry,
+  and cleanup behavior on web, iOS, and Android.
+- Record physical-device and real-browser evidence using the matrix in
+  `PHASE-2-CAPTURE.md`.
+
+### Phase 2 exclusions
+
+- Recognition engines or letter-accuracy claims.
+- Raw-audio persistence, replay, export, upload, or telemetry.
+- Background recording.
+- Child voice collection or model training.
+- Backend, database, accounts, ranking, or multiplayer.
+
 ## Later-phase safeguards
 
-- Phase 2 selects capture APIs through an ADR after toolchains are verified.
+- Phase 2 uses the capture API accepted by ADR-009 after toolchain verification.
 - Phase 3 may time-box candidate dependencies; it does not choose production by
   preference.
 - Phase 4 cannot collect child voices until an accepted privacy/consent ADR.
