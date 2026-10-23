@@ -38,16 +38,19 @@ the microphone during this phase.
 - Test invalid transitions, duplicate starts/stops, late buffers, cancellation,
   cleanup, and failure recovery.
 
-### Slice B — Expo Audio adapter and health-check UI
+### Slice B — platform adapters and health-check UI
 
 - Add the exact Expo SDK 58-compatible `expo-audio` version.
-- Wrap `useAudioStream` behind the project contract.
+- Wrap native `useAudioStream` and web `getUserMedia` plus `AudioWorklet` behind
+  the project contract.
 - Request mono 16 kHz signed 16-bit PCM, while recording the actual format
   delivered by the device.
 - Keep PCM in memory only and discard it immediately after metrics are reduced.
 - Disable background recording and cancel capture when the app loses the
   foreground.
 - Add accessible permission, recording, stopping, result, and retry states.
+- Do not use deprecated `ScriptProcessorNode` or assume Expo Audio's currently
+  empty web streaming implementation works.
 
 ### Slice C — platform evidence
 

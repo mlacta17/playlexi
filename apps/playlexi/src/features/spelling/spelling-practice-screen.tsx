@@ -38,7 +38,11 @@ function getPracticeWord() {
 
 const PRACTICE_WORD = getPracticeWord();
 
-export function SpellingPracticeScreen() {
+export function SpellingPracticeScreen({
+  onOpenMicrophoneCheck,
+}: {
+  readonly onOpenMicrophoneCheck?: () => void;
+} = {}) {
   const [session, dispatch] = useReducer(
     transitionSpellingSession,
     PRACTICE_WORD,
@@ -84,6 +88,9 @@ export function SpellingPracticeScreen() {
           <Text style={styles.instructions}>
             This phase uses a scripted recognizer—no microphone or voice recording yet.
           </Text>
+          {onOpenMicrophoneCheck !== undefined ? (
+            <SecondaryButton label="Open microphone health check" onPress={onOpenMicrophoneCheck} />
+          ) : null}
 
           <View accessibilityLabel="Your spelling" style={styles.letterRow}>
             {session.word.letters.map((_, index) => {

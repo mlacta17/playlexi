@@ -69,8 +69,9 @@ ADR-008 uses GitHub Actions for fast Linux CI checks, with official actions
 pinned to immutable commits. Native builds remain documented local evidence
 until capture work or release cadence justifies hosted native CI.
 
-ADR-009 uses Expo Audio 58.0.10 behind the provider-neutral `AudioCapture`
-contract for Phase 2. The adapter requests short, foreground-only PCM streams;
+ADR-009 uses Expo Audio 58.0.10 on iOS and Android and browser
+`getUserMedia` plus `AudioWorklet` on web, both behind the provider-neutral
+`AudioCapture` contract. Adapters request short, foreground-only PCM streams;
 health metrics are reduced in memory and sample buffers are immediately
 discarded. Background recording and audio-file creation remain disabled.
 
@@ -89,6 +90,7 @@ Primary references checked 2026-10-21:
 apps/
 └── playlexi/                 # Expo application and route composition
 packages/
+├── audio-contract/           # Provider-neutral capture lifecycle and metrics
 ├── domain/                   # Framework-independent spelling behavior
 ├── speech-contract/          # Audio/recognition types and contracts
 ├── test-fixtures/            # Non-sensitive deterministic fixtures
@@ -186,8 +188,7 @@ changes, and browser suspension are first-class outcomes.
 
 - Use standards-based microphone capture.
 - Perform processing off the main UI path.
-- Do not introduce deprecated `ScriptProcessorNode`; evaluate `AudioWorklet`
-  when capture work begins.
+- Use `AudioWorklet`; do not introduce deprecated `ScriptProcessorNode`.
 - Test browser permission and suspension behavior independently.
 
 ### iOS and Android
