@@ -44,8 +44,11 @@ For Phase 1:
 Because this checkout is stored in a macOS file-provider-managed Documents
 folder, ExpoModulesJSI's generated framework cache must live under the local
 temporary directory. The repository provides an idempotent preparation script
-and sets `EXPO_CUSTOM_BUILD_ROOT` for iOS builds; generated native projects and
-the cache remain uncommitted.
+and sets `EXPO_CUSTOM_BUILD_ROOT` for iOS builds. The package's `Products`
+directory remains a real directory so CocoaPods discovers vendored frameworks;
+only `Products/ExpoModulesJSI.xcframework` points to the temporary cache. The
+preparation step also creates Expo's required stub slices before CocoaPods
+resolution. Generated native projects and the cache remain uncommitted.
 
 All direct dependencies use exact versions. Transitive versions are fixed by
 the committed pnpm lockfile. Expo-managed package versions are installed with

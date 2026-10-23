@@ -12,6 +12,10 @@ coverage/
 ios/
 android/
 
+# This source helper lives under tools/ios; it is not a generated native project.
+!tools/ios/
+!tools/ios/**
+
 .build/
 DerivedData/
 *.xcuserstate

@@ -1,7 +1,7 @@
 # Development environment
 
-**Last checked:** 2026-10-22
-**Status:** Phase 1 web, iOS, and Android baselines verified
+**Last checked:** 2026-10-23
+**Status:** Web baseline plus iOS and Android Phase 2 development builds verified
 
 This document records observed local facts. It does not install or upgrade host
 software and does not select project dependency versions.
@@ -11,7 +11,7 @@ software and does not select project dependency versions.
 | Check | Observed result | Interpretation |
 | --- | --- | --- |
 | macOS | 26.6.2, build 25G83 | Current host |
-| Node.js | 23.11.0 | Host default is end-of-life; project pin is Node.js 24.22.1 LTS per ADR-007 |
+| Node.js | 24.22.1 through the project NVM runtime | Exact project pin verified per ADR-007; the system default remains outside project control |
 | Corepack | 0.32.0 | Available |
 | pnpm | 11.25.0 | Selected project package manager per ADR-007 |
 | Selected developer directory | `/Applications/Xcode.app/Contents/Developer` | Full Xcode path selected |
@@ -31,7 +31,9 @@ software and does not select project dependency versions.
 | Android virtual device | `Medium_Phone_API_37.0` | Available for Phase 1 |
 
 The deterministic implementation uses the versions accepted in ADR-007. The
-first web, iOS simulator, and Android emulator builds succeeded on 2026-10-22.
+Phase 2 source passed lint, strict type checking, 9 test suites with 22 tests,
+and a four-route production web export under the exact pinned runtime on
+2026-10-23.
 
 ## Selected scaffolding baseline
 
@@ -58,11 +60,13 @@ xcrun simctl list devices available
 ```
 
 The deterministic application built, installed, and opened on an iPhone 16 Pro
-simulator with zero Xcode build errors or warnings. Because this checkout is in
-a file-provider-managed Documents folder, run `pnpm prepare:ios` before a clean
-iOS build and set `EXPO_CUSTOM_BUILD_ROOT=/private/tmp/playlexi-expo-jsi` for
-the Expo command. This prevents macOS extended attributes from entering the
-generated ExpoModulesJSI framework and breaking code signing.
+simulator. Because this checkout is in a file-provider-managed Documents folder,
+run `pnpm prepare:ios` before a clean iOS build and set
+`EXPO_CUSTOM_BUILD_ROOT=/private/tmp/playlexi-expo-jsi` for the Expo command.
+The preparation keeps the package's `Products` directory real for CocoaPods
+discovery while linking only the generated ExpoModulesJSI XCFramework to the
+temporary cache. This prevents file-provider metadata from breaking framework
+generation or code signing.
 
 Before real-device capture validation, connect and pair the target iPhone,
 record its model and OS, and verify signing without recording account
@@ -85,10 +89,11 @@ During scaffolding, record:
 
 The generated Expo project used Gradle 9.4.1, compile SDK 37, target SDK 36,
 minimum SDK 24, NDK 27.1.12297006, and Kotlin 2.2.10. It built, installed, and
-opened on the `Medium_Phone_API_37.0` emulator. Upstream Expo and React Native
-dependencies emitted deprecation warnings; the build itself completed
-successfully. A physical Android device is not required for Phase 1, but is
-required before capture or recognition claims.
+opened on the `Medium_Phone_API_37.0` emulator. The Phase 2 microphone prompt and
+three-second capture lifecycle also completed there. The emulator's virtual
+microphone returned silence, so a physical device is still required for signal
+quality or recognition claims. Upstream Expo and React Native dependencies
+emitted deprecation warnings; the build itself completed successfully.
 
 Do not invent `JAVA_HOME`, Android SDK paths, or Gradle versions before the
 supported Expo toolchain is selected.

@@ -32,11 +32,15 @@ Recorded on 2026-10-23 from the repository root.
 | Unit and component tests | Pass: 9 suites, 22 tests |
 | Production web export | Pass: four routes, including `/microphone-check` |
 | Expo dependency compatibility check | Pass |
+| iOS simulator compile and launch | Pass with Xcode 27.1 for arm64 and fresh DerivedData |
 | Android debug compile | Pass: 488 Gradle tasks; APK generated |
+| Android emulator permission and capture | Pass: API 37 prompt, grant, and three-second capture lifecycle |
 
-The Android build included `expo-audio` 58.0.10. Generated Android configuration
-requests only `android.permission.RECORD_AUDIO`; it does not declare a microphone
-foreground service or notification permission.
+The Android build included `expo-audio` 58.0.10. Product configuration requests
+only `android.permission.RECORD_AUDIO`; it does not declare a microphone
+foreground service or notification permission. On API 37, React Native's debug
+manifest also requests `ACCESS_LOCAL_NETWORK` so the development build can reach
+Metro. That debug-only permission is not part of a release build.
 
 Generated iOS configuration contains the following permission explanation:
 
@@ -44,30 +48,25 @@ Generated iOS configuration contains the following permission explanation:
 
 It does not declare a background-audio mode.
 
-## iOS local-build blocker
+## Resolved iOS local-build blocker
 
-The current source does not yet have a successful Xcode 27.1 simulator build.
-After a clean Expo Prebuild, CocoaPods install, regenerated ExpoModulesJSI cache,
-and clean Playlexi DerivedData, Xcode fails while compiling upstream Expo modules:
+A clean official Expo SDK 58 application compiled successfully with Xcode 27.1,
+first without and then with the same Expo Audio 58.0.10 dependency used by
+Playlexi. That isolated the failure to Playlexi's local cache preparation rather
+than Xcode, Expo SDK 58, or Expo Audio.
 
-```text
-Unable to resolve module dependency: 'ExpoModulesJSI'
-```
+The previous workaround replaced ExpoModulesJSI's entire `Products` directory
+with a symlink to a temporary cache. CocoaPods did not discover the vendored
+XCFramework through that directory-level symlink, so downstream Expo modules
+could not resolve `ExpoModulesJSI`. A normal `Products` directory containing an
+XCFramework-level symlink preserves CocoaPods discovery while keeping generated
+framework data outside the file-provider-managed checkout.
 
-The error originates in `ExpoModulesCore`, before Playlexi application source is
-compiled. Expo Autolinking's supported `buildFromSource` override for
-`expo-modules-core` was also tested and produced the same missing-module error,
-so that ineffective override was not retained. No generated native file or
-installed package was patched to conceal the failure.
-
-This blocks iOS runtime capture evidence, not the platform-neutral contract,
-metrics, component tests, web export, or Android compile. Revisit against an
-Expo patch compatible with Xcode 27.1, or isolate a minimal reproduction before
-changing the accepted stack.
-
-Related upstream cache behavior checked during diagnosis:
-
-- <https://github.com/expo/expo/issues/50365>
+After regenerating CocoaPods integration and using fresh DerivedData, Playlexi
+compiled successfully for an arm64 iOS simulator with Xcode 27.1. It then
+installed and launched on an iPhone 16 Pro simulator and rendered the practice
+screen. No generated native source or installed package source was patched.
+Microphone permission and lifecycle behavior remain separate runtime evidence.
 
 ## Runtime evidence still required
 
@@ -78,15 +77,16 @@ identifiers to this repository.
 | --- | --- | --- | --- |
 | Web | Current Safari on localhost/HTTPS | Pending | Permission, signal metrics, background/visibility, cleanup, 20 cycles |
 | Web | Current Chrome on localhost/HTTPS | Pending | Permission, signal metrics, background/visibility, cleanup, 20 cycles |
-| iOS | iPhone simulator | Blocked | Resolve upstream Xcode/Expo module build, then lifecycle-only evidence |
+| iOS | iPhone 16 Pro simulator, iOS 18.3 | Install and launch passed | Permission and lifecycle-only evidence |
 | iOS | Physical iPhone | Pending | Permission, real signal, interruption/routes, cleanup, 20 cycles |
-| Android | API 37 emulator | Build passed; runtime pending | Permission and lifecycle functional checks |
+| Android | API 37 emulator | Permission and capture lifecycle passed | Background/route checks and repeated-cycle evidence |
 | Android | Physical device | Pending device | Permission, real signal, interruption/routes, cleanup, 20 cycles |
 
-The configured API 37 emulator remained in its operating-system boot animation
-during this run, so the verified APK could not be installed. It was stopped
-after the package service remained unavailable; no Playlexi runtime claim is
-made from that attempt.
+The API 37 emulator cold-booted, installed the debug APK, rendered the practice
+and microphone-check screens, displayed the operating-system microphone prompt,
+accepted the grant, and completed a 2.90-second capture at 16 kHz mono. The
+virtual microphone produced zero-level samples, so this proves permission and
+capture lifecycle only; it is not evidence of real-device signal quality.
 
 ## Owner-assisted script
 
